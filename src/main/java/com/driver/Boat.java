@@ -1,26 +1,29 @@
 package com.driver;
 
-public class Boat extends Vehicle implements WaterVehicle {
+public class Boat implements WaterVehicle {
+    private String name;
+    private int capacity;
 
-    private String vehicleName;
-    private int vehicleCapacity;
-
-    public Boat(String name, int capacity) {
-        // Boat is a Vehicle, so call the super constructor
-        super(name);
-        // Initialize fields based on WaterVehicle requirements
-        this.vehicleName = name;
-        this.vehicleCapacity = capacity;
+    public Boat(String name, int capacity){
+        this.name = name;
+        this.capacity = capacity;
     }
 
-    // Implementing methods from WaterVehicle interface
+    public String getName(){
+        return this.name;
+    }
+
+    public int getCapacity(){
+        return this.capacity;
+    }
+
     @Override
     public String getVehicleName() {
-        return vehicleName;
+        return name;
     }
 
     @Override
     public int getVehicleCapacity() {
-        return vehicleCapacity;
+        return capacity;
     }
 }

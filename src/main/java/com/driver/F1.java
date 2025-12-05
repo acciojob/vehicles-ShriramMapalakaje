@@ -3,21 +3,12 @@ package com.driver;
 public class F1 extends Car {
 
     public F1(String name, boolean isManual) {
-        // Use arbitrary values for parameters which are not mentioned
-        // Using standard values for an F1 car: wheels=4, doors=0, gears=7, seats=1, type="Racing"
-        super(name, 4, 0, 7, isManual, "Racing", 1);
+        //Use arbitrary values for parameters which are not mentioned
+        super(name, 4, 4,6, isManual, "racing", 1);
     }
 
     public void accelerate(int rate){
-        // 1. Get current speed and calculate new speed
-        int currentSpeed = getCurrentSpeed();
-        int newSpeed = currentSpeed + rate;
-
-        // Speed cannot be negative
-        if (newSpeed < 0) {
-            newSpeed = 0;
-        }
-
+        int newSpeed = getCurrentSpeed() + rate; //set the value of new speed by using currentSpeed and rate
         /**
          * speed 0: gear 1
          * speed 1-50: gear 1
@@ -27,38 +18,29 @@ public class F1 extends Car {
          * speed 201-250: gear 5
          * speed more than 250: gear 6
          */
-        int newGear;
 
         if(newSpeed == 0) {
-            // Stop the car, set gear as 1
-            newGear = 1;
-            stop(); // Calls stop() from Vehicle
-        } else if (newSpeed <= 50) {
-            newGear = 1;
+            //Stop the car, set gear as 1
+            stop();
+            changeGear(1);
+        }
+        //for all other cases, change the gear accordingly
+        else if (newSpeed <= 50){
+            changeGear(1);
         } else if (newSpeed <= 100) {
-            newGear = 2;
+            changeGear(2);
         } else if (newSpeed <= 150) {
-            newGear = 3;
+            changeGear(3);
         } else if (newSpeed <= 200) {
-            newGear = 4;
+            changeGear(4);
         } else if (newSpeed <= 250) {
-            newGear = 5;
-        } else { // newSpeed > 250
-            newGear = 6;
+            changeGear(5);
         }
-
-        // 4. Change gear if necessary
-        // getCurrentGear() is assumed to be defined in Car.java
-        if (newGear != getCurrentGear()) {
-            changeGear(newGear);
+        else {
+            changeGear(6);
         }
-
-        // 5. Change speed and direction if the car is moving
         if(newSpeed > 0) {
-            // getCurrentDirection() is inherited from Vehicle
             changeSpeed(newSpeed, getCurrentDirection());
         }
-
-        // Note: The private getCurrentDirection() method was removed as it is inherited.
     }
 }
